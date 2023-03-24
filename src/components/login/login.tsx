@@ -1,11 +1,12 @@
-import React from "react"
+import * as React from "react";
+import Form from "./form";
+import "./login.css";
 
-const Login = (): JSX.Element => {
-    return (
-        <div>
-            Login Page
-        </div>
-    );
+export default function FormPropsTextFields() {
+  return (
+    <div>
+      <h2 className="login-heading">Login Page</h2>
+      <Form />
+    </div>
+  );
 }
-
-export default Login;
