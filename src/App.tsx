@@ -1,21 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Home from "./components/home/home";
-import Login from "./components/login/login";
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Home from "./pages/home/home";
+import Login from "./pages/login/login";
+import Client from "./pages/client/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import ButtonAppBar from "./components/appBar";
 function App() {
   return (
-    <BrowserRouter>
+    <>
+    {/* <ButtonAppBar/> */}
+      <BrowserRouter>
+      <ButtonAppBar/>
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="client" element={<Client />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+      </>
   );
 }
 
