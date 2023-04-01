@@ -9,11 +9,16 @@ const AddProject = (): JSX.Element => {
   const navigate = useNavigate();
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const res = axios.post("/projects", {
+    console.log(e.target.form.projectTitle.value);
+
+    const newProject = {
       title: e.target.form.projectTitle.value,
-      content: e.target.form.projectContent,
-    });
-    res.then(() => navigate("/admin/project"));
+      content: e.target.form.projectContent.value,
+    };
+    console.log(newProject);
+
+    const res = axios.post("/projects",newProject);
+    res.then(() => navigate("/admin/project")).catch(()=>alert("The project already exists. Please try again"));
   };
   return (
     <Form className="text-center m-4">

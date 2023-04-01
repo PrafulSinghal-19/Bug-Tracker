@@ -4,9 +4,8 @@ import "./App.css";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import Client from "./pages/client/client";
-import AdminUser from "./pages/admin/adminUser";
 import AdminProject from "./pages/admin/adminProject";
-import User from "./pages/admin/user";
+import Project from "./pages/admin/project";
 import AddProject from "./pages/admin/addProject";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,10 +22,9 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/client" element={<Client />} />
-            <Route path="/admin/user" element={<AdminUser />} />
-            <Route path="/admin/user/:id" element={<User />} />
             <Route path="/admin/project" element={<AdminProject />} />
             <Route path="/admin/project/addProject" element={<AddProject />} />
+            <Route path="/admin/project/:id" element={<Project />} />
           </Route>
         </Routes>
       </BrowserRouter>
