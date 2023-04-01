@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function FormPropsTextFields() {
   return (
-    <GoogleOAuthProvider clientId={`${process.env.REACT_APP_CLIENT_ID}`}>
+    <GoogleOAuthProvider clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}>
       <h2 className="login-heading">Login Page</h2>
       <Form />
     </GoogleOAuthProvider>
