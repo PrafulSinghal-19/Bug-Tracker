@@ -17,7 +17,7 @@ const AddProject = (): JSX.Element => {
     };
     console.log(newProject);
 
-    const res = axios.post("/projects",newProject);
+    const res = axios.post("/admin/addProject",newProject);
     res.then(() => navigate("/admin/project")).catch(()=>alert("The project already exists. Please try again"));
   };
   return (

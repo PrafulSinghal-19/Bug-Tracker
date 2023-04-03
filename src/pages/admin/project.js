@@ -13,19 +13,19 @@ const Project = () => {
   const [Users, setUsers] = useState([]);
   const [usersId, setUsersId] = useState([]);
 
-  useEffect(async () => {
-    const res = axios.post("/searchData", { search: "" });
-    await axios.get("/projects/" + id).then((val) => {
+  useEffect(() => {
+    const res = axios.post("/user/search", { search: "" });
+    axios.get("/admin/project/" + id).then((val) => {
       setUsersId(val.data[0].users);
+      res.then((val) => setUsers(val.data));
     });
-    await res.then((val) => setUsers(val.data));
   }, []);
 
   const handleAdd = async (objectId) => {
     const arr = [...usersId, objectId];
     setUsersId(arr);
     axios.patch("/user/addProject/" + objectId, { id: id });
-    axios.patch("/projects/addUser/" + id, { id: objectId });
+    axios.patch("/project/addUser/" + id, { id: objectId });
   };
 
   const handleDelete = async (objectId) => {
@@ -34,7 +34,7 @@ const Project = () => {
     });
     setUsersId(arr);
     axios.patch("/user/deleteProject/" + objectId, { id: id });
-    axios.patch("/projects/deleteUser/" + id, { id: objectId });
+    axios.patch("/project/deleteUser/" + id, { id: objectId });
   };
 
   const handleChange = async (e) => {
@@ -45,7 +45,6 @@ const Project = () => {
 
   const printUsers = (user) => {
     let isAlloted = false;
-    console.log(usersId)
     if (usersId.includes(user._id)) isAlloted = true;
     return (
       <User

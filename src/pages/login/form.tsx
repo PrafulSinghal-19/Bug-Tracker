@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { GoogleLogin } from "@react-oauth/google";
 import { NavLink, Link } from "react-router-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -30,24 +29,28 @@ function BasicExample() {
       password: e.target.form.password.value,
     };
 
-    console.log(user);
+    const res = axios.post(`/auth/logIn`, { user });
 
-    const res = await axios.post(`/user`, { user });
+    res.then(() => console.log("Success")).catch(() => console.log("Error"));
     
-    if (res.status == 200) {
-      console.log("Going to Client");
+    // if (res.status == 200) {
+    //   console.log("Going to Client");
       
-      localStorage.setItem("user", res.data);
-      navigate("/client" ,{state:{name:res.data.name,projects:res.data.projects}})
-    }
+    //   localStorage.setItem("user", res.data);
+    //   navigate("/client" ,{state:{name:res.data.name,projects:res.data.projects}})
   };
 
-  const responseGoogle = (response: any) => {
-    const userObject: UserObject = jwt_decode(response.credential);
-    console.log(userObject);
-    localStorage.setItem("user", JSON.stringify(userObject));
-    navigate("/client");
+  const Google_oauth = async () => {
+    window.open("http://localhost:8000/auth/google", "_self");
   };
+  
+  const Github_oauth = async() => {
+    window.open("http://localhost:8000/auth/github", "_self");
+  };
+
+  useEffect(() => {
+    axios.get("/auth/login/success").then((val) => {navigate("/client")}).catch(() => console.log("Catch error"));
+  }, []);
 
   return (
     <Container className="mt-5">
@@ -70,34 +73,30 @@ function BasicExample() {
         </Form.Group>
         <Button
           variant="primary"
-          className="input-Field mb-3"
+          className="input-Field mb-1"
           type="submit"
           onClick={handleLogin}
         >
           Submit
         </Button>
-
-        <GoogleLogin
-          onSuccess={responseGoogle}
-          onError={() => {
-            navigate("/login");
-            console.log("on error");
-          }}
-        />
+        
         <div style={{ margin: 10 }}></div>
         <Button
-          variant="secondary"
-          className="input-Field mb-3"
-          onClick={() =>
-          {
-            console.log('OnClick is pressed');
-            
-            window.location.replace(
-              `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:3000/client`
-            )}
-          }
+          variant="danger"
+          className="input-Field mb-1"
+          onClick={Google_oauth}
         >
-          <GitHubIcon className="m-2" />
+          <GoogleIcon className="m-1" />
+          Sign In Using Google
+        </Button>
+
+        <div style={{ margin: 10 }}></div>
+
+        <Button
+          variant="secondary"
+          className="input-Field mb-1"
+          onClick={Github_oauth}>
+          <GitHubIcon className="m-1" />
           Sign In Using Github
         </Button>
       </Form>

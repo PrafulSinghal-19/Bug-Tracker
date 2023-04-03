@@ -36,19 +36,18 @@ const Client = (): JSX.Element => {
 
     // getData();
 
-    console.log(location.state);
+    // console.log(location.state);
 
-    const login = isLoggedIn();
-    if (!login) {
-      navigate("/login");
-    }
-    setCheckLogin(login);
+  //   const login = isLoggedIn();
+  //   if (!login) {
+  //     navigate("/login");
+  //   }
+  //   setCheckLogin(login);
   }, []);
 
   return (
     <>
-      <h1>Hello {location.state.name} </h1>
-      {location.state.projects.map(createProjects)}
+      <h1>Hello</h1>
     </>
   );
 };

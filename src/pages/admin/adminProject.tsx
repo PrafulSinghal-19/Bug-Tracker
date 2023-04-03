@@ -13,7 +13,7 @@ const AdminProject = (): JSX.Element => {
   const handleClick = () => navigate("/admin/project/addProject");
 
   useEffect(() => {
-    axios.get("/projects").then((val) => setProjects(val.data));
+    axios.get("/admin/project").then((val) => setProjects(val.data));
   }, []);
 
   const printProjects = (project: any) => {
