@@ -1,12 +1,25 @@
 import React from "react";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
 
-const Project = (props:any): JSX.Element => {
-    return (
-        <div>
-            <h3>The name of project is {props.name}</h3>
-            <h4>The content of Project is { props.content}</h4>
-        </div>
-    )
-}
+const User = (props: any) => {
+  const navigate = useNavigate();
 
-export default Project;
+  const handleClick = () => {
+    navigate(`/client/${props.id}`);
+  };
+
+  return (
+    <Col>
+      <Card className="mb-3 mt-2" onClick={handleClick}>
+        <Card.Body>
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>{props.content}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+};
+
+export default User;

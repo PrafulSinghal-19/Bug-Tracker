@@ -1,54 +1,41 @@
 import React from "react";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import Row from "react-bootstrap/Row";
 import { useState, useEffect } from "react";
-import isLoggedIn from "../../middleware/auth";
 import axios from "../../API/axios";
-import Projects from "./projects";
+import Project from "./projects";
+import "./client.css";
 
 const Client = (): JSX.Element => {
-  const navigate = useNavigate();
-  const [checkLogin, setCheckLogin] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
 
-  const createProjects = (project: any) => {
-    console.log(project)
-    return <Projects projectValue={project}></Projects>
+  const [projects, setProjects] = useState([]);
+  const [username, setUsername] = useState('');
+
+  const printProjects = (project:any) => {
+    return (
+      <Project title={project.title} content={project.content} key={project._id} id={project._id}></Project>
+    );
   }
 
   useEffect(() => {
-    // const getData = async () => {
-    //   const fetchData = async (code: any) => {
-    //     const res = await axios.post(`/fetchData`, { code: code });
-    //     return res.data;
-    //   };
-
-    //   let code = searchParams.get("code");
-
-    //   if (code != null) {
-    //     const res = await fetchData(code);
-    //     localStorage.setItem("user", res);
-    //     navigate("/client");
-    //   }
-
-    //   console.log("Done with the access token");
-    // };
-
-    // getData();
-
-    // console.log(location.state);
-
-  //   const login = isLoggedIn();
-  //   if (!login) {
-  //     navigate("/login");
-  //   }
-  //   setCheckLogin(login);
+    try {
+      axios("/user").then((val) => {
+        setProjects(val.data.projects);
+        setUsername(val.data.name);
+      });
+    }
+    catch {
+      setProjects([]);
+    }
   }, []);
 
   return (
-    <>
-      <h1>Hello</h1>
-    </>
+    <div className="clientBody">
+      <h4 style={{textAlign:"left", marginBottom:"30px"} }>Hello {username}</h4>
+      <Row md={2} lg={3} className="g-4">
+      {projects.map(printProjects)}
+      </Row>
+    </div>
   );
 };
 

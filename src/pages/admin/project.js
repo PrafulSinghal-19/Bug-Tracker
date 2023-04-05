@@ -38,8 +38,7 @@ const Project = () => {
   };
 
   const handleChange = async (e) => {
-    const res = await axios.post("/searchData", { search: e.target.value });
-    console.log(res.data);
+    const res = await axios.post("/user/search", { search: e.target.value });
     setUsers(res.data);
   };
 

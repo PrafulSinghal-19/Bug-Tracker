@@ -5,18 +5,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { useNavigate } from "react-router-dom";
+import { Navigate,useNavigate,Link } from "react-router-dom";
 import Bug from "../images/bug.svg";
 import "./appBar.css"
-import isLoggedIn from '../middleware/auth';
+import axios from "../API/axios";
 
-export default function ButtonAppBar() {
+const NavBar = (props: any) => {
+  const handleLogOut = async() => {
+    window.open("http://localhost:8000/auth/logout", "_self");
+    props.setAuth(false);
+  }
+
   const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    localStorage.removeItem('user');
-    navigate('/')
-  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -26,11 +27,12 @@ export default function ButtonAppBar() {
             Bug Tracker
           </Typography>
           {
-            isLoggedIn() ? <Button color="inherit" onClick={ handleLogOut}>Log Out</Button>:<Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>
-          }
-          
+            props.isAuth ? <Button color="inherit" onClick={handleLogOut}>Log Out</Button>:<Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>
+          }        
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+
+export default NavBar;
