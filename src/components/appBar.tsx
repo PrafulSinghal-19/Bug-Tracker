@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect,useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,8 +13,22 @@ import axios from "../API/axios";
 const NavBar = (props: any) => {
   const handleLogOut = async() => {
     window.open("http://localhost:8000/auth/logout", "_self");
-    props.setAuth(false);
   }
+
+  const [isAuth, setAuth] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/auth/login/success");
+        setAuth(true)
+      } catch {
+        setAuth(false);
+      }
+    };
+
+    fetchData().catch((e) => { });
+  });
 
   const navigate = useNavigate();
 
@@ -27,7 +41,7 @@ const NavBar = (props: any) => {
             Bug Tracker
           </Typography>
           {
-            props.isAuth ? <Button color="inherit" onClick={handleLogOut}>Log Out</Button>:<Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>
+            isAuth ? <Button color="inherit" onClick={handleLogOut}>Log Out</Button>:<Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>
           }        
         </Toolbar>
       </AppBar>

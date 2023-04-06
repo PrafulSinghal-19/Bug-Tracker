@@ -12,7 +12,14 @@ const ProjectBugs = (): JSX.Element => {
 
   const navigate = useNavigate();
   const printBugs = (bug: any) => {
-      return <ProjectBug id={ bug._id} key={bug._id} title={bug.title} content={bug.content} />;
+    return (
+      <ProjectBug
+        id={bug._id}
+        key={bug._id}
+        title={bug.title}
+        content={bug.content}
+      />
+    );
   };
 
   const handleClick = () => {
@@ -20,26 +27,44 @@ const ProjectBugs = (): JSX.Element => {
   };
 
   useEffect(() => {
-    axios
-      .get(`/project/${projectId}`)
-      .then((val) => {
-        setBugs(val.data.bugs);
-        setProjectName(val.data.title);
-      })
-      .catch((e) => navigate("/client"));
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/auth/login/success");
+      } catch {
+        navigate("/login");
+      }
+    };
+
+    fetchData().catch((e) => {
+      navigate("/login");
+    });
+
+    const getData = async () => {
+      try {
+        const res = await axios.get(`/project/${projectId}`);
+        setBugs(res.data.bugs);
+        setProjectName(res.data.title);
+      } catch {
+        navigate("/client");
+      }
+    };
+    getData().catch((e) => {
+      navigate("/client");
+    });
   }, []);
 
   return (
-    <>
+    <div style={{ margin: 20 }}>
       <h4>{projectName}</h4>
 
       <Row md={2} lg={3} className="g-4">
         {bugs.map(printBugs)}
       </Row>
-      <Button variant="primary" className="mt-2" onClick={handleClick}>
+
+      <Button variant="primary" className="mt-5" onClick={handleClick}>
         Add
       </Button>
-    </>
+    </div>
   );
 };
 

@@ -34,7 +34,6 @@ export default function FormPropsTextFields(props:any) {
     const res = axios.post(`/auth/logIn`, { username:e.target.form.email.value,password:e.target.form.password.value });
 
     res.then(() => {
-      props.setAuth(true);
       navigate("/client")
     }).catch(() => {
       console.log("Error")
@@ -50,8 +49,16 @@ export default function FormPropsTextFields(props:any) {
   };
 
   useEffect(() => {
-    if (props.isAuth) navigate("/client");
-  }, [props.isAuth]);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/auth/login/success");     
+        navigate("/client")
+      }
+      catch {
+      }
+    }
+    fetchData().catch((e) => console.log(e));
+  }, []);
 
   return (
     <>

@@ -27,7 +27,7 @@ const AdminProject = (): JSX.Element => {
       <Row md={2} lg={4} className="g-4">
         {projects.map(printProjects)}
       </Row>
-      <Button variant="primary" className="mt-2" onClick={handleClick}>
+      <Button variant="primary" className="mt-4" onClick={handleClick}>
         Add
       </Button>
     </div>

@@ -2,7 +2,6 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
-import "./adminUser.css"
 
 const User = (props: any) => {
     const navigate = useNavigate();

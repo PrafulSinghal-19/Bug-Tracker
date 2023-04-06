@@ -16,6 +16,17 @@ const AddBug = (): JSX.Element => {
     };
 
     try {
+      const fetchData = async () => {
+        try {
+          const res = await axios.get("/auth/login/success");
+        } catch {
+          navigate("/login");
+        }
+      };
+
+      fetchData().catch((e) => {
+        navigate("/login");
+      });
       const res = await axios.post(`/project/${projectId}/addBug`, newProject);
       navigate("/client/" + projectId);
     } catch {

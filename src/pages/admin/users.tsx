@@ -15,7 +15,7 @@ const User = (props: any) => {
 
   return (
     <Col>
-      <Card className="mb-3 mt-2">
+      <Card className="mb-3 mt-2" style={{textAlign:"left"}}>
         <Card.Img
           variant="top"
           src="https://cdn-icons-png.flaticon.com/512/6009/6009864.png"

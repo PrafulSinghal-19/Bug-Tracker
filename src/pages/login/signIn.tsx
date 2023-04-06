@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import axios from "../../API/axios";
 
-function BasicExample(props: any) {
+function BasicExample() {
   const navigate = useNavigate();
   const handleClick = async (e: any) => {
     e.preventDefault();
@@ -17,16 +17,23 @@ function BasicExample(props: any) {
     };
     try {
       const res = await axios.post("/auth/signIn", user);
-      props.setAuth(true);
-      navigate("/client");
+      navigate("/login");
     } catch {
       navigate("/logIn", { state: { error: "The user already exists" } });
     }
   };
 
   useEffect(() => {
-    if (props.isAuth) navigate("/client");
-  }, [props.isAuth]);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/auth/login/success");
+        navigate("/client");
+      }
+      catch {
+      }
+    }
+    fetchData().catch((e) => console.log(e));
+  }, []);
 
   return (
     <Container className="mt-5 max-wid">
