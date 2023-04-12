@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../API/axios";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
@@ -9,6 +9,20 @@ const AddBug = (): JSX.Element => {
   const navigate = useNavigate();
   const { projectId } = useParams();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/auth/login/success");
+      } catch {
+        navigate("/login");
+      }
+    };
+
+    fetchData().catch((e) => {
+      navigate("/login");
+    });
+  }, []);
+
   const handleSubmit = async (e: any) => {
     const newProject = {
       title: e.target.form.bugTitle.value,
@@ -16,17 +30,6 @@ const AddBug = (): JSX.Element => {
     };
 
     try {
-      const fetchData = async () => {
-        try {
-          const res = await axios.get("/auth/login/success");
-        } catch {
-          navigate("/login");
-        }
-      };
-
-      fetchData().catch((e) => {
-        navigate("/login");
-      });
       const res = await axios.post(`/project/${projectId}/addBug`, newProject);
       navigate("/client/" + projectId);
     } catch {

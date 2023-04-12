@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ProjectBug from "./projects";
+import Bugs from "./bugs";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import axios from "../../API/axios";
@@ -11,19 +11,25 @@ const ProjectBugs = (): JSX.Element => {
   const { projectId } = useParams();
 
   const navigate = useNavigate();
+
+  const clicked = (id:any)=>{
+    navigate(`/client/${projectId}/messenger/${id}`);
+  }
+
+  const handleClick = () => {
+    navigate(`/client/${projectId}/addBug`);
+  };
+
   const printBugs = (bug: any) => {
     return (
-      <ProjectBug
+      <Bugs
         id={bug._id}
         key={bug._id}
         title={bug.title}
         content={bug.content}
+        clicked={clicked}
       />
     );
-  };
-
-  const handleClick = () => {
-    navigate(`/client/${projectId}/addBug`);
   };
 
   useEffect(() => {

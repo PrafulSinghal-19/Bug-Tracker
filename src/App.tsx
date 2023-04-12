@@ -11,6 +11,7 @@ import AddProject from "./pages/admin/addProject";
 import SignIn from "./pages/login/signIn";
 import UserProject from "./pages/client/projectBugs";
 import AddBug from "./pages/client/addBug";
+import Messenger from "./pages/messenger/messenger";
 import axios from "./API/axios";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -46,6 +47,7 @@ function App() {
             <Route path="/client" element={<Client />} />
             <Route path="/client/:projectId" element={<UserProject />} />
             <Route path="/client/:projectId/addBug" element={<AddBug />} />
+            <Route path="/client/:projectId/messenger/:id" element={<Messenger/>}/>
             <Route path="/admin/project" element={<AdminProject />} />
             <Route path="/admin/project/addProject" element={<AddProject />} />
             <Route path="/admin/project/:id" element={<Project />} />

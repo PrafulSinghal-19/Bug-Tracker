@@ -5,7 +5,7 @@ import User from "./users";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "./adminUser.css";
-import Icon from "./icon";
+import Icon from "../../components/icon";
 import { useParams } from "react-router-dom";
 
 const Project = () => {
