@@ -14,11 +14,23 @@ const Project = () => {
   const [usersId, setUsersId] = useState([]);
 
   useEffect(() => {
-    const res = axios.post("/user/search", { search: "" });
-    axios.get("/admin/project/" + id).then((val) => {
-      setUsersId(val.data[0].users);
-      res.then((val) => setUsers(val.data));
-    });
+    const getAllottedUsers = async () => {
+      try {
+        const result = await axios.get("/admin/project/" + id)
+        console.log(result.data[0].users)
+        setUsersId(result.data[0].users);
+        try {
+          const res = await axios.post("/user/search", { search: "" });
+          console.log(res.data)
+          setUsers(res.data);
+        }
+        catch(err){}
+      }
+      catch(err){}
+    }
+
+    getAllottedUsers();
+    
   }, []);
 
   const handleAdd = async (objectId) => {
@@ -44,7 +56,11 @@ const Project = () => {
 
   const printUsers = (user) => {
     let isAlloted = false;
-    if (usersId.includes(user._id)) isAlloted = true;
+    
+    usersId.forEach((userId) => {
+      if (userId._id === user._id) isAlloted = true;
+    })
+
     return (
       <User
         key={user._id}

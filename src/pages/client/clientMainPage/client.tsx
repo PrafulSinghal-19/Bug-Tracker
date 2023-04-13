@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import { useState, useEffect } from "react";
-import axios from "../../API/axios";
-import Project from "./projects";
+import axios from "../../../API/axios";
+import Project from "../projects/projects";
 import "./client.css";
 
 const Client = (): JSX.Element => {
@@ -23,19 +23,7 @@ const Client = (): JSX.Element => {
     );
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/auth/login/success");
-      } catch {
-        navigate("/login")
-      }
-    };
-
-    fetchData().catch((e) => {
-      navigate("/login");
-    });
-    
+  useEffect(() => {    
     try {
       axios("/user").then((val) => {
         setProjects(val.data.projects);

@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Navigate,useNavigate,Link } from "react-router-dom";
-import Bug from "../images/bug.svg";
+import Bug from "../../images/bug.svg";
 import "./appBar.css"
-import axios from "../API/axios";
+import axios from "../../API/axios";
 
 const NavBar = (props: any) => {
   const handleLogOut = async() => {

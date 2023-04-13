@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "../../API/axios";
+import axios from "../../../API/axios";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -8,20 +8,6 @@ import Button from "react-bootstrap/Button";
 const AddBug = (): JSX.Element => {
   const navigate = useNavigate();
   const { projectId } = useParams();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/auth/login/success");
-      } catch {
-        navigate("/login");
-      }
-    };
-
-    fetchData().catch((e) => {
-      navigate("/login");
-    });
-  }, []);
 
   const handleSubmit = async (e: any) => {
     const newProject = {

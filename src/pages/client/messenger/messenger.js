@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import "./messenger.css";
-import Icon from "../../components/icon";
+import Icon from "../../../components/icon";
 import Conversation from "../conversation/conversation";
 import Message from "../message/message";
 import TextField from "@mui/material/TextField";
 import Button from "react-bootstrap/Button";
-import axios from "../../API/axios";
+import axios from "../../../API/axios";
 import { io } from "socket.io-client";
 
 const Messenger = () => {

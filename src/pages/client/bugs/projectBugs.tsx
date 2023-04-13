@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Bugs from "./bugs";
+import Bugs from "./components/bugs";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import axios from "../../API/axios";
+import axios from "../../../API/axios";
 
 const ProjectBugs = (): JSX.Element => {
   const [bugs, setBugs] = useState([]);
@@ -33,17 +33,6 @@ const ProjectBugs = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/auth/login/success");
-      } catch {
-        navigate("/login");
-      }
-    };
-
-    fetchData().catch((e) => {
-      navigate("/login");
-    });
 
     const getData = async () => {
       try {
@@ -54,9 +43,8 @@ const ProjectBugs = (): JSX.Element => {
         navigate("/client");
       }
     };
-    getData().catch((e) => {
-      navigate("/client");
-    });
+    getData();
+    
   }, []);
 
   return (

@@ -10,7 +10,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import LoginOAuth2 from "@okteto/react-oauth2-login";
 import { useEffect, useState } from "react";
-import axios from "../../API/axios";
+import axios from "../../../API/axios";
 
 interface UserObject {
   name: String;
@@ -57,7 +57,7 @@ export default function FormPropsTextFields(props:any) {
       catch {
       }
     }
-    fetchData().catch((e) => console.log(e));
+    fetchData();
   }, []);
 
   return (
